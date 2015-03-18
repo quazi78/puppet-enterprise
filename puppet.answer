@@ -1,0 +1,56 @@
+## See https://docs.puppetlabs.com/pe/latest/install_complete_answer_file_reference.html
+
+# Global Answers
+q_install=y
+q_vendor_packages_install=y
+
+# Roles
+q_puppetmaster_install=y
+q_puppetdb_install=y
+q_puppet_enterpriseconsole_install=y
+q_puppetagent_install=y
+q_puppet_cloud_install=y
+
+# Puppet Agent Answers
+#q_puppetagent_certname=
+q_puppetagent_server=puppet.local
+#q_fail_on_unsuccessful_master_lookup=
+#q_skip_master_verification=n
+q_puppet_agent_first_run=y
+
+# Puppet Master Answers
+q_all_in_one_install=y
+q_puppetmaster_certname=puppet.local
+#q_puppetmaster_dnsaltnames=
+q_pe_check_for_updates=n
+
+# Console Answers
+q_database_host=localhost
+q_disable_live_manangement=n
+q_pe_database=y
+q_puppet_enterpriseconsole_httpd_port=443
+q_puppet_enterpriseconsole_auth_password=puppetpassword
+q_puppet_enterpriseconsole_database_name=console
+q_puppet_enterpriseconsole_database_user=console
+
+# Database Support Answers
+q_database_host=localhost
+q_database_install=y
+q_database_port=5432
+q_database_root_password=puppetpassword
+q_database_root_user=pe-postgres
+q_puppetdb_database_name=pe-puppetdb
+q_puppetdb_database_password=puppetpassword
+q_puppetdb_database_user=pe-puppetdb
+q_puppetdb_hostname=puppet.local
+q_puppetdb_install=y
+q_puppetdb_port=8081
+q_classifier_database_name=pe-classifier
+q_classifier_database_password=puppetpassword
+q_classifier_database_user=pe-classifier
+q_rbac_database_name=pe-rbac
+q_rbac_database_password=puppetpassword
+q_rbac_database_user=pe-rbac
+q_activity_database_name=pe-activity
+q_activity_database_password=puppetpassword
+q_activity_database_user=pe-activity
