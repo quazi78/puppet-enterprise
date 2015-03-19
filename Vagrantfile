@@ -77,7 +77,7 @@ GROUP="Puppet Enterprise"
 EL_INSTANCES=1
 
 # Number of Windows 2012 
-WIN_INSTANCES=0
+WIN_INSTANCES=1
 
 # Domain for all nodes, i.e. "example.com". Defaults to "local" for support with
 # Zeroconf (Avahi)/Bonjour. If you change this, ensure that a reliable DNS source
@@ -115,7 +115,8 @@ Vagrant.configure("2") do |config|
       v.cpus = CPU_PUPPET
       v.customize [ 
         "modifyvm", :id,
-        "--groups", "/#{GROUP}"
+        "--groups", "/#{GROUP}",
+        "--ioapic", "on"
       ]
     end
     puppet.vm.provision "shell", inline: <<-SHELL
@@ -130,7 +131,7 @@ Vagrant.configure("2") do |config|
       tar --extract --ungzip --file=/vagrant/#{PE_BUNDLE} -C /tmp/
       /tmp/#{PE_VERSION}/puppet-enterprise-installer -A /vagrant/#{NAME_PUPPET}.answer
       echo -e "autosign = true\n" >> /etc/puppetlabs/puppet/puppet.conf
-      /usr/local/bin/puppet config set environment_timeout #{ENVIRONMENT_TIMEOUT} --section puppet
+      /usr/local/bin/puppet config set environment_timeout #{ENVIRONMENT_TIMEOUT} --section master
       /usr/local/bin/puppet config set runinterval #{RUNINTERVAL} --section agent
       service pe-puppetserver restart
       service pe-puppet restart
@@ -153,7 +154,8 @@ Vagrant.configure("2") do |config|
         v.cpus = CPU_NODE
         v.customize [
           "modifyvm", :id,
-          "--groups", "/#{GROUP}"
+          "--groups", "/#{GROUP}",
+          "--ioapic", "on"
         ]
       end
       elnode.vm.provision "shell", inline: <<-SHELL
