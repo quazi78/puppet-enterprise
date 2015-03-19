@@ -167,7 +167,7 @@ Vagrant.configure("2") do |config|
       service avahi-daemon restart
       sleep #{AVAHI_DELAY} # wait for avahi-daemon to discover other servers
       curl -k https://puppet.local:8140/packages/current/install.bash | sudo bash
-      /usr/local/bin/puppet config set environment_timeout #{ENVIRONMENT_TIMEOUT} --section puppet
+      /usr/local/bin/puppet config set environment_timeout #{ENVIRONMENT_TIMEOUT} --section master
       /usr/local/bin/puppet config set runinterval #{RUNINTERVAL} --section agent
       service pe-puppet restart
       SHELL
