@@ -1,8 +1,8 @@
-# Vagrant-based Puppet-Enterprise Split Installation
+# Vagrant-based Puppet-Enterprise Installation
 
 This project is used for creating a small monolithic installation of Puppet Enterprise for testing and evaluation purposes. It is not suitable for production use. The Puppet Master, PuppetDB, Console, and Certificate Authority are all installed on the same server. Nodes (Enterprise Linux and Windows) to be managed with Puppet are also provisioned to comprise a complete testing environment.
 
-For a split (each service on its own VM) Puppet Enterprise version of this project try [split-puppet-enterprise](https://github.com/singlestone/split-puppet-enterprise).
+For a split (each Puppet service on its own VM) Puppet Enterprise version of this project try [split-puppet-enterprise](https://github.com/singlestone/split-puppet-enterprise).
 
 
 ## Requirements
