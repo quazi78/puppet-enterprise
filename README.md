@@ -10,7 +10,7 @@ For a split (each Puppet service on its own VM) Puppet Enterprise version of thi
 You must have:
 - [Vagrant](https://www.vagrantup.com)
 - [VirtualBox](https://www.virtualbox.org)
-- Sufficient RAM to run the VMs. By default, the VMs are configured with 7.25 GiB (total) of RAM. Having at least 10 GiB of RAM installed in your host machine is advisable to avoid swapping. You can adjust the VM RAM settings in the Vagrantfile, however some Puppet components may not perform adequately with lower amounts.
+- Sufficient RAM to run the VMs. By default, the VMs are configured with 4.75 GiB (total) of RAM. Having at least 6 GiB of RAM installed in your host machine is advisable to avoid swapping. You can adjust the VM RAM settings in the Vagrantfile, however some Puppet components may not perform adequately with lower amounts.
 - A [Zeroconf](https://en.wikipedia.org/wiki/Zero-configuration_networking)/[Bonjour](https://en.wikipedia.org/wiki/Bonjour_(software)) client running on your host machine (i.e. your laptop). Any Mac running OS X already has this. For Windows, try Apple's [Bonjour Print Services](https://support.apple.com/kb/DL999?locale=en_US), which installs the required components. You can also install Bonjour (64-bit) from the binary repository referenced in the Vagrantfile. On Linux, install Avahi/mDNS.
 
 The Vagrantfile supports the [`vagrant-cachier`](https://github.com/fgrehm/vagrant-cachier) plugin to cache yum repositories for faster startup. It is not required but can considerably reduce  ```vagrant up``` times during subsequent runs by caching RPMs from ```yum``` operations.
