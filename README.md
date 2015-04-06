@@ -30,10 +30,8 @@ Here are some common problems you may encounter:
 This stems from a known issue in Vagrant 1.7.2 that should be resolved in 1.7.3. The problem is that Vagrant no longer reboots Windows nodes after their hostname is changed (via ```winnode.vm.hostname = "win-node#{i}.#{DOMAIN}"```) even though a reboot is required. As a result, the Puppet Enterprise agent fails to install. As a workaround:
 
 1. Run ```vagrant up``` as you normally would to start the entire stack. You will see errors during the Windows node provisioning stage.
-2. Run ```vagrant halt win-node0```
-3. Run ```vagrant up win-node0```.
-4. Run ```vagrant provision win-node0```. During this re-provisioning phase the Puppet Enterprise agent should be successfully installed.
-5. Repeat the above steps for any other Windows nodes you have.
+2. Run ```vagrant reload --provision win-node0```. During this re-provisioning phase the Puppet Enterprise agent should be successfully installed.
+3. Repeat the above steps for any other Windows nodes you have.
 
 For more information on the Vagrant bug (and fix) see https://github.com/mitchellh/vagrant/pull/5261.
 
