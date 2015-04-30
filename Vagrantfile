@@ -62,7 +62,7 @@ if ! File.exists?("./bin/#{BONJOUR_WIN_CLIENT}")
 end
 
 # Puppet Enterprise Installer
-PE_VERSION="puppet-enterprise-3.7.2-el-6-x86_64"
+PE_VERSION="puppet-enterprise-#{PUPPET_ENTERPRISE_VERSION}-el-6-x86_64"
 PE_BUNDLE="./bin/#{PE_VERSION}.tar.gz"
 
 # Hostnames of systems
@@ -137,7 +137,7 @@ Vagrant.configure("2") do |config|
       service pe-puppet restart
       echo -e "<?xml version=\"1.0\" standalone='no'?><\!--*-nxml-*-->\n<\!DOCTYPE service-group SYSTEM "avahi-service.dtd">\n\n<service-group>\n\n\t<name replace-wildcards=\"yes\">Puppet Enterprise Console (%h)</name>\n\n\t<service>\n\t\t<type>_https._tcp</type>\n\t\t<port>443</port>\n\t</service>\n\n</service-group>\n" >> /etc/avahi/services/pe-console.service
     SHELL
-    puppet.vm.post_up_message = "Puppet Enterprise is now running. Access the console at '\033[36mhttps://puppet.local\033[32m'. The username is '\033[34madmin\033[32m' and the password is '\033[34mpuppetpassword\033[32m'."
+    puppet.vm.post_up_message = "Puppet Enterprise is now running. Access the console at '\033[36mhttps://#{NAME_PUPPET}.#{DOMAIN}\033[32m'. The username is '\033[34madmin\033[32m' and the password is '\033[34mpuppetpassword\033[32m'."
   end
 
   EL_INSTANCES.times do |i|
