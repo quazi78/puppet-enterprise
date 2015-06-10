@@ -3,7 +3,7 @@
 
 PUPPET_ENTERPRISE_VERSION="3.7.2"
 
-URL="https://s3.amazonaws.com/ddig-puppet/"
+URL="https://s3.amazonaws.com/ddig-puppet"
 PE_INSTALLER="puppet-enterprise-#{PUPPET_ENTERPRISE_VERSION}-el-6-x86_64.tar.gz"
 PE_WIN_AGENT="puppet-enterprise-#{PUPPET_ENTERPRISE_VERSION}-x64.msi"
 BONJOUR_WIN_CLIENT="Bonjour64.msi"
@@ -197,7 +197,7 @@ Vagrant.configure("2") do |config|
       winnode.vm.provision :shell, path: "./scripts/Install-BonjourClient.ps1"
       winnode.vm.provision "shell" do |s|
         s.path = "./scripts/Install-PuppetEnterpriseAgent.ps1"
-        s.args = "#{NAME_PUPPET}.#{DOMAIN}"
+        s.args = ["#{NAME_PUPPET}.#{DOMAIN}", "#{PE_WIN_AGENT}"]
       end
     end
   end
