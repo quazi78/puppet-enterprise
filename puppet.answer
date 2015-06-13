@@ -7,7 +7,7 @@ q_vendor_packages_install='y'
 # Roles
 q_puppetmaster_install='y'
 q_puppetdb_install='y'
-q_puppet_enterpriseconsole_install=y
+q_puppet_enterpriseconsole_install='y'
 q_puppetagent_install='y'
 q_puppet_cloud_install='n'
 
