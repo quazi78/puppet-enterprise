@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-PUPPET_ENTERPRISE_VERSION="3.7.2"
+PUPPET_ENTERPRISE_VERSION="3.8.1"
 
 URL="https://s3.amazonaws.com/ddig-puppet"
 PE_INSTALLER="puppet-enterprise-#{PUPPET_ENTERPRISE_VERSION}-el-6-x86_64.tar.gz"
@@ -24,10 +24,8 @@ if ! File.exists?("./bin/#{PE_INSTALLER}")
   printf "Downloading #{URL}/#{PE_INSTALLER} (be patient!)..."
   #puts "Please run '\033[36m./run_first.sh\033[39m' to download required dependencies."
   require 'open-uri'
-  File.open("./bin/#{PE_INSTALLER}", "wb") do |saved_file|
-    open("#{URL}#{PE_INSTALLER}", "rb") do |read_file|
-      saved_file.write(read_file.read)
-    end
+  open("./bin/#{PE_INSTALLER}", "wb") do |file|
+    file << open("#{URL}/#{PE_INSTALLER}", "rb").read
   end
   puts "done."
   #exit 1
@@ -38,10 +36,8 @@ if ! File.exists?("./bin/#{PE_WIN_AGENT}")
   printf "Downloading #{URL}/#{PE_WIN_AGENT} (be patient!)..."
   #puts "Please run '\033[36m./run_first.sh\033[39m' to download required dependencies."
   require 'open-uri'
-  File.open("./bin/#{PE_WIN_AGENT}", "wb") do |saved_file|
-    open("#{URL}#{PE_WIN_AGENT}", "rb") do |read_file|
-      saved_file.write(read_file.read)
-    end
+  open("./bin/#{PE_WIN_AGENT}", "wb") do |file|
+    file << open("#{URL}/#{PE_WIN_AGENT}", "rb").read
   end
   puts "done."
   #exit 1
@@ -52,10 +48,8 @@ if ! File.exists?("./bin/#{BONJOUR_WIN_CLIENT}")
   printf "Downloading #{URL}/#{BONJOUR_WIN_CLIENT} (be patient!)..."
   #puts "Please run '\033[36m./run_first.sh\033[39m' to download required dependencies."
   require 'open-uri'
-  File.open("./bin/#{BONJOUR_WIN_CLIENT}", "wb") do |saved_file|
-    open("#{URL}#{BONJOUR_WIN_CLIENT}", "rb") do |read_file|
-      saved_file.write(read_file.read)
-    end
+  open("./bin/#{BONJOUR_WIN_CLIENT}", "wb") do |file|
+    file << open("#{URL}/#{BONJOUR_WIN_CLIENT}", "rb").read
   end
   puts "done."
   #exit 1
@@ -180,7 +174,7 @@ Vagrant.configure("2") do |config|
       winnode.vm.communicator = "winrm"
       winnode.winrm.timeout = 500
       winnode.vm.box = WIN_BOX
-      winnode.vm.hostname = "win-node#{i}.#{DOMAIN}"
+      winnode.vm.hostname = "win-node#{i}"
       winnode.vm.network "private_network", type: "dhcp"
       winnode.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
       winnode.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
@@ -197,7 +191,7 @@ Vagrant.configure("2") do |config|
       winnode.vm.provision :shell, path: "./scripts/Install-BonjourClient.ps1"
       winnode.vm.provision "shell" do |s|
         s.path = "./scripts/Install-PuppetEnterpriseAgent.ps1"
-        s.args = ["#{NAME_PUPPET}.#{DOMAIN}", "#{PE_WIN_AGENT}"]
+        s.args = ["#{NAME_PUPPET}", "#{PE_WIN_AGENT}"]
       end
     end
   end
