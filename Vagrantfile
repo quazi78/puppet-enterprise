@@ -70,7 +70,7 @@ GROUP="Puppet Enterprise"
 # Number of Enterprise Linux managed nodes to create.
 EL_INSTANCES=1
 
-# Number of Windows 2012 
+# Number of Windows 2012
 WIN_INSTANCES=1
 
 # Domain for all nodes, i.e. "example.com". Defaults to "local" for support with
@@ -107,7 +107,7 @@ Vagrant.configure("2") do |config|
       v.name = "Puppet"
       v.memory = MEMORY_PUPPET
       v.cpus = CPU_PUPPET
-      v.customize [ 
+      v.customize [
         "modifyvm", :id,
         "--groups", "/#{GROUP}",
         "--ioapic", "on"
@@ -167,7 +167,7 @@ Vagrant.configure("2") do |config|
       SHELL
     end
   end
-  
+
   WIN_INSTANCES.times do |i|
     config.vm.define "win-node#{i}".to_sym do |winnode|
       winnode.vm.guest = :windows
@@ -191,7 +191,7 @@ Vagrant.configure("2") do |config|
       winnode.vm.provision :shell, path: "./scripts/Install-BonjourClient.ps1"
       winnode.vm.provision "shell" do |s|
         s.path = "./scripts/Install-PuppetEnterpriseAgent.ps1"
-        s.args = ["#{NAME_PUPPET}", "#{PE_WIN_AGENT}"]
+        s.args = ["#{NAME_PUPPET}.#{DOMAIN}", "#{PE_WIN_AGENT}"]
       end
     end
   end

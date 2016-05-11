@@ -16,13 +16,15 @@
 param(
     [Parameter(Mandatory=$true)]
     [string]$PuppetMaster,
-    
+
     [Parameter(Mandatory=$true)]
     [string]$PuppetAgentInstaller
 )
 
+$AgentCertName = "$($env:computername.ToLower()).local"
+
 Write-Output "Puppet Master:          $PuppetMaster"
-Write-Output "Agent Cert Name:        $env:computername"
+Write-Output "Agent Cert Name:        $AgentCertName"
 Write-Output "Puppet Agent Installer: $PuppetAgentInstaller"
 
 #cmd.exe /C msiexec /qn /l* C:\vagrant\log\pe-agent-install.txt /i C:\vagrant\bin\puppet-enterprise-3.7.2-x64.msi PUPPET_MASTER_SERVER=$PuppetMaster PUPPET_AGENT_CERTNAME=$env:computername
@@ -47,7 +49,7 @@ if (!($PuppetInstalled)) {
   }
 
   # Install it - msiexec will download from the url
-  $install_args = @("/qn", "/norestart", "/i C:\vagrant\bin\$PuppetAgentInstaller", "PUPPET_MASTER_SERVER=$PuppetMaster", "PUPPET_AGENT_CERTNAME=$env:computername")
+  $install_args = @("/qn", "/norestart", "/i C:\vagrant\bin\$PuppetAgentInstaller", "PUPPET_MASTER_SERVER=$PuppetMaster", "PUPPET_AGENT_CERTNAME=$AgentCertName")
   Write-Host "Installing Puppet agent. Running msiexec.exe $install_args"
   $process = Start-Process -FilePath msiexec.exe -ArgumentList $install_args -Wait -PassThru
   if ($process.ExitCode -ne 0) {
